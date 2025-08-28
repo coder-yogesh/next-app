@@ -1,6 +1,11 @@
 // components/NoteForm.tsx
 'use client';
 import { useState, useEffect } from 'react';
+import dynamic from "next/dynamic";
+import "react-quill-new/dist/quill.snow.css";
+
+
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 interface Note {
   id?: string;
@@ -19,6 +24,7 @@ export default function NoteForm({
   onCancel?: () => void;
   initialData?: { id: string; title: string; content: string } | null;
 }) {
+  const [value, setValue] = useState("");
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -57,12 +63,19 @@ export default function NoteForm({
         required
         className="w-full border px-3 py-2 rounded"
       />
-      <textarea
+      {/* <textarea
         placeholder="Content"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         required
         className="w-full border px-3 py-2 rounded"
+      /> */}
+       <ReactQuill
+        theme="snow"
+        value={content}
+        onChange={(setContent)}
+        placeholder="Write something..."
+        className="bg-white"
       />
         <button
             type="submit"

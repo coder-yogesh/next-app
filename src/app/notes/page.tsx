@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { getNotes, createNote, deleteNote, updateNote } from '@/api/notes';
-import NoteForm from '@/components/NoteForm';
+import { getNotes, createNote, deleteNote, updateNote } from '../../api/notes';
+import NoteForm from '../../components/NoteForm';
 
 interface Note {
     id: number;
@@ -58,7 +58,7 @@ export default function NotesPage() {
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="text-lg font-semibold">{note.title}</h3>
-                <p className="text-gray-700 mt-1">{note.content}</p>
+                <p className="text-gray-700 mt-1"   dangerouslySetInnerHTML={{ __html: note.content }}></p>
               </div>
               <div className="flex flex-col items-end gap-2">
                 <button
