@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { loginUser } from "../../api/users";
 import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +25,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="grid grid-cols-1 md:grid-cols-1 max-w-4xl bg-white shadow-2xl rounded-2xl overflow-hidden">
+      <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl overflow-hidden">
         {/* Left side */}
         {/* <div className="hidden md:flex items-center justify-center bg-gradient-to-tr from-blue-600 to-green-500">
           <div className="w-48 h-48 bg-white/20 rounded-full"></div>
@@ -31,7 +33,7 @@ export default function LoginPage() {
 
         {/* Right side */}
         <div className="flex items-center justify-center p-10">
-          <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-6">
+          <form onSubmit={handleSubmit} className="w-full space-y-6">
             <input
               type="email"
               value={email}
@@ -41,14 +43,24 @@ export default function LoginPage() {
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
             />
 
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="Password"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
-            />
+            {/* Password field with eye toggle */}
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Password"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
 
             <button
               type="submit"
