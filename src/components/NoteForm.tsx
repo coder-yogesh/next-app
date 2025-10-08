@@ -37,7 +37,8 @@ export default function NoteForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const note = { title, content };
+    const userId:any = JSON.parse(localStorage.getItem('user'));
+    const note = { title, content, userId: userId.userDetails.id };
     if (initialData && onUpdate) {
       onUpdate({ ...note, id: initialData.id });
     } else if (onSave) {

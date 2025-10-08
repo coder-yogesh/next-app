@@ -14,7 +14,8 @@ export default function NotesPage() {
   const [editNote, setEditNote] = useState<Note | null>(null);
 
   const fetchNotes = async () => {
-    const res = await getNotes();
+    const userId = JSON.parse(localStorage.getItem('user')).userDetails.id;
+    const res = await getNotes(userId);
     setNotes(res);
     setEditNote(null); // Clear edit mode after fetch
   };

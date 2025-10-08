@@ -11,9 +11,9 @@ export const createNote = async (note) => {
     }
 }
 
-export const getNotes = async () => {
+export const getNotes = async (userId) => {
     try {
-        const response = await api.get('/notes');
+        const response = await api.get(`/notes/${userId}`);
         console.log('Fetched notes:', response.data);
         return response.data;
     } catch (error) {
